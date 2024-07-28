@@ -15,7 +15,10 @@ const createValidator =
     /** Result of parsing the request against the schema. */
     const result = schema.safeParse(req);
     if (!result.success) {
-      res.status(StatusCodes.BAD_REQUEST).send();
+      res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Invalid request data',
+        errors: result.error.errors,
+      });
       return;
     }
 
