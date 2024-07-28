@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { MongoClient } from 'mongodb';
 
 /**
  * Defines the signature for a synchronous Express middleware function.
