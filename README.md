@@ -1,2 +1,3 @@
-# express-ts
-A boilerplate for building scalable RESTful APIs using Node.js, Express, Mongoose, and TypeScript.
+# GLO Server API
+
+Provide an API for the list of games developed by Game Level One.
