@@ -13,7 +13,9 @@ const create: Controller = async (req, res) => {
 
   await Game.create(game);
 
-  res.status(StatusCodes.CREATED).json({ message: 'Game created' });
+  res
+    .status(StatusCodes.CREATED)
+    .json({ message: 'Game created successfully.' });
 };
 
 export default create;
