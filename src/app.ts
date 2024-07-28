@@ -1,10 +1,12 @@
 import dotenv from 'dotenv';
 import express, { Application } from 'express';
+import connectDB from '@/config/db.config';
 import cors from 'cors';
-import rootRouter from './routes';
+import helmet from 'helmet';
+import compression from 'compression';
 import morgan from 'morgan';
-import errorHandler from './middlewares/error-handler';
-import connectDB from './config/db.config';
+import rootRouter from '@/routes';
+import errorHandler from '@/middlewares/error-handler';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
@@ -23,20 +25,15 @@ const buildApp = (attachLogger: boolean): Application => {
 
   connectDB(process.env.MONGODB_URI).catch(console.error);
 
-  const corsOptions = {
-    origin: ['http://localhost:5173'],
-    headers: ['Content-Type'],
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-    credentials: true,
-  };
-
-  app.use(cors(corsOptions));
+  app.use(cors());
+  app.use(helmet());
+  app.use(compression());
+  app.use(express.json());
 
   if (attachLogger) {
     app.use(morgan('combined'));
   }
 
-  app.use(express.json());
   app.use('/v1', rootRouter);
   app.use(errorHandler);
 
