@@ -17,7 +17,7 @@ const createValidator =
     if (!result.success) {
       res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Invalid request data',
-        errors: result.error.errors,
+        error: result.error.errors[0].message,
       });
       return;
     }
