@@ -5,7 +5,7 @@ import UpdateGameDto from '@/types/dtos/game/update.dto';
 
 /**
  * Handles the HTTP PUT request to update a `Game` entity.
- * @param _req - The Express request object. (unused)
+ * @param req - The Express request object.
  * @param res - The Express response object used to return data and HTTP status codes to the client.
  */
 const update: Controller = async (req, res) => {

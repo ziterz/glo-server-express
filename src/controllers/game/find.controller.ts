@@ -10,6 +10,11 @@ import Game from '@/models/game.model';
 const find: Controller = async (req, res) => {
   const games = await Game.findById({ _id: req.params.id });
 
+  if (!games) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: 'Game not found.' });
+    return;
+  }
+
   res.status(StatusCodes.OK).json({ games });
 };
 
