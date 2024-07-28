@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import Controller from '@/types/controllers/controller';
 import Game from '@/models/game.model';
-import UpdateGameDto from '@/types/dtos/game/update.dto';
-import IdParams from '@/types/dtos/id-param.dto';
+import UpdateGameDto from '@/types/schemas/dtos/game/update.dto';
+import IdParams from '@/types/schemas/dtos/id-param.dto';
 
 /**
  * Handles the HTTP PUT request to update a `Game` entity.

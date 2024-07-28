@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import Controller from '@/types/controllers/controller';
 import Game from '@/models/game.model';
-import CreateGameDto from '@/types/dtos/game/create.dto';
+import CreateGameDto from '@/types/schemas/dtos/game/create.dto';
 
 /**
  * Handles the HTTP POST request to add new `Game` data.

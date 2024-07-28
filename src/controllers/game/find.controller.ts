@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import Controller from '@/types/controllers/controller';
 import Game from '@/models/game.model';
-import IdParams from '@/types/dtos/id-param.dto';
+import IdParams from '@/types/schemas/dtos/id-param.dto';
 
 /**
  * Handles the HTTP GET request to find `Game` data by ID.
