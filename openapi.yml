@@ -11,11 +11,31 @@ tags:
     description: Miscellaneous operations.
 
 paths:
-  /games:
+  /v1/games:
+    post:
+      operationId: games#create
+      summary: Creates a new game
+      tags:
+        - game
+      responses:
+        '201':
+          description: Successfully added a new game
+          content:
+            application/json:
+              schema:
+                description: Object containing a success message.
+                type: object
+                properties:
+                  message:
+                    description: A success message
+                    type: string
+                    example: 'Game created successfully.'
+        '400':
+          description: The request parameters or request body are invalid.
+
     get:
-      operationId: games#index
-      summary: List of games
-      description: Retrieves a list of games.
+      operationId: games#read
+      summary: Retrieves a list of games.
       tags:
         - game
       responses:
@@ -33,7 +53,102 @@ paths:
                     items:
                       $ref: '#/components/schemas/Game'
 
-  /health:
+  /v1/games/{id}:
+    get:
+      operationId: games#readById
+      summary: Retrieve a detail of the game.
+      parameters:
+        - name: id
+          description: ID of the component to update.
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      tags:
+        - game
+      responses:
+        '200':
+          description: A successful response containing a list of games.
+          content:
+            application/json:
+              schema:
+                description: Object containing a games.
+                type: object
+                properties:
+                  game:
+                    $ref: '#/components/schemas/Game'
+
+        '400':
+          description: Request parameters are invalid.
+
+        '404':
+          description: Game does not exist.
+
+    put:
+      operationId: games#update
+      summary: Update a detail of the game.
+      parameters:
+        - name: id
+          description: ID of the component to update.
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      tags:
+        - game
+      responses:
+        '200':
+          description: Successful update of game data.
+          content:
+            application/json:
+              schema:
+                description: Object containing a message.
+                type: object
+                properties:
+                  message:
+                    description: A success message
+                    type: string
+                    example: 'Game updated successfully.'
+
+        '400':
+          description: The request parameters or request body are invalid.
+
+        '404':
+          description: Game does not exist.
+
+    delete:
+      operationId: games#delete
+      summary: Delete a detail of the game.
+      parameters:
+        - name: id
+          description: ID of the component to update.
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      tags:
+        - game
+      responses:
+        '200':
+          description: Successful deletion of game data.
+          content:
+            application/json:
+              schema:
+                description: Object containing a message.
+                type: object
+                properties:
+                  message:
+                    description: A success message
+                    type: string
+                    example: 'Game deleted successfully.'
+
+        '400':
+          description: The request parameters are invalid.
+
+        '404':
+          description: Game does not exist.
+
+  /v1/health:
     get:
       summary: Health check
       description: Returns a status code of 200 for health checks.
