@@ -38,7 +38,7 @@ afterAll(async () => {
 describe('Get all games', () => {
   it('Gets all games and returns a 200 status code', async () => {
     // Prepare
-    const findGameSpy = jest
+    const readGameSpy = jest
       .spyOn(Game, 'find')
       .mockResolvedValueOnce([mockPayload]);
     let expected = { games: [mockPayload] };
@@ -47,13 +47,13 @@ describe('Get all games', () => {
     let response = await supertest.get('/v1/games');
 
     // Test
-    expect(findGameSpy).toHaveBeenCalledTimes(1);
-    expect(findGameSpy).toHaveBeenCalledWith();
+    expect(readGameSpy).toHaveBeenCalledTimes(1);
+    expect(readGameSpy).toHaveBeenCalledWith();
 
     expect(response.status).toBe(StatusCodes.OK);
     expect(response.body).toStrictEqual(expected);
 
     // Cleanup
-    findGameSpy.mockRestore();
+    readGameSpy.mockRestore();
   });
 });

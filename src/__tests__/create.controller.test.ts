@@ -40,7 +40,7 @@ describe('Create a new game', () => {
     // Prepare
     const createGameSpy = jest
       .spyOn(Game, 'create')
-      .mockResolvedValueOnce(mockPayload as ReturnType<typeof Game.create>);
+      .mockResolvedValueOnce({} as ReturnType<typeof Game.create>);
     const expectedMessage = 'Game created successfully.';
 
     // Execute
@@ -69,12 +69,12 @@ describe('Create a new game', () => {
       ['released', { ...mockPayload, released: undefined }],
       ['website', { ...mockPayload, website: undefined }],
     ])(
-      'POST /v1/games - It should return a bad request error when `%s` is empty',
+      'It should return a bad request error when `%s` is empty',
       async (fieldName, payload) => {
         // Prepare
         const createGameSpy = jest
           .spyOn(Game, 'create')
-          .mockResolvedValueOnce(mockPayload as ReturnType<typeof Game.create>);
+          .mockResolvedValueOnce({} as ReturnType<typeof Game.create>);
 
         // Execute
         const response = await supertest.post('/v1/games').send(payload);
