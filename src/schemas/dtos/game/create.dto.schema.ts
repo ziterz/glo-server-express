@@ -8,7 +8,7 @@ const CREATE_GAME_DTO_SCHEMA = z.object({
     genre: z.string({
       required_error: 'Genre is required field',
     }),
-    platform: z
+    platforms: z
       .array(
         z.string({
           required_error: 'Platform is required field',

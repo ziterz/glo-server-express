@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 const ID_PARAM_SCHEMA = z.object({
   params: z.object({
     id: z.string().refine((value) => Types.ObjectId.isValid(value), {
-      message: 'Invalid ObjectId',
+      message: 'Invalid ObjectId.',
     }),
   }),
 });

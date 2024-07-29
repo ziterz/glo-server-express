@@ -1,31 +1,7 @@
-/** Represents the base DTO for creating or updating a `Game` entity. */
-interface UpdateGameDto {
-  /** Title of the `Game`. */
-  title?: string;
+import UPDATE_GAME_DTO_SCHEMA from '@/schemas/dtos/game/update.dto.schema';
+import { z } from 'zod';
 
-  /** Genre of the `Game`. */
-  genre?: string;
-
-  /** Platforms the `Game` is available on. */
-  platforms?: string[];
-
-  /** Description of the `Game`. */
-  description?: string;
-
-  /** URL of the `Game`'s poster image. */
-  poster?: string;
-
-  /** URL of the `Game`'s logo on the poster. */
-  posterLogo?: string;
-
-  /** URL of the `Game`'s promotional video. */
-  video?: string;
-
-  /** Release date of the `Game`. */
-  released?: Date;
-
-  /** Official website of the `Game`. */
-  website?: string;
-}
+/** Represents the base DTO for creating a `Game` entity. */
+type UpdateGameDto = z.infer<typeof UPDATE_GAME_DTO_SCHEMA>;
 
 export default UpdateGameDto;

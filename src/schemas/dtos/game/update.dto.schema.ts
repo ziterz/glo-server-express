@@ -4,7 +4,7 @@ const UPDATE_GAME_DTO_SCHEMA = z.object({
   body: z.object({
     title: z.optional(z.string()),
     genre: z.optional(z.string()),
-    platform: z.optional(z.array(z.string())),
+    platforms: z.optional(z.array(z.string())),
     description: z.optional(z.string()),
     poster: z.optional(z.string()),
     posterLogo: z.optional(z.string()),
