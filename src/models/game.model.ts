@@ -4,7 +4,7 @@ interface IGame extends Document {
   _id: Types.ObjectId;
   title: string;
   genre: string;
-  platform: string[];
+  platforms: string[];
   description: string;
   poster: string;
   posterLogo: string;
@@ -16,7 +16,7 @@ interface IGame extends Document {
 const GameSchema: Schema = new Schema<IGame>({
   title: { type: String, required: [true, 'Title is required field'] },
   genre: { type: String, required: [true, 'Genre is required field'] },
-  platform: {
+  platforms: {
     type: [String],
     minlength: 1,
     required: [true, 'Platform is required field'],
@@ -27,9 +27,15 @@ const GameSchema: Schema = new Schema<IGame>({
       message: () => 'Platform must have at least 1 values',
     },
   },
-  description: { type: String, required: [true, 'Description is required field'] },
+  description: {
+    type: String,
+    required: [true, 'Description is required field'],
+  },
   poster: { type: String, required: [true, 'Poster is required field'] },
-  posterLogo: { type: String, required: [true, 'PosterLogo is required field'] },
+  posterLogo: {
+    type: String,
+    required: [true, 'PosterLogo is required field'],
+  },
   video: { type: String, required: [true, 'Video is required field'] },
   released: { type: Date, required: [true, 'Released date is required field'] },
   website: { type: String, required: [true, 'Website is required field'] },
