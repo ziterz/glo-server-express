@@ -12,7 +12,15 @@ import IdParams from '@/types/schemas/dtos/id-param.dto';
 const update: Controller = async (req, res) => {
   const game = { ...req.body } as UpdateGameDto;
 
-  await Game.updateOne({ _id: req.params.id } as IdParams, game);
+  const findGame = await Game.findByIdAndUpdate(
+    { _id: req.params.id } as IdParams,
+    game
+  );
+
+  if (!findGame) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: 'Game not found.' });
+    return;
+  }
 
   res.status(StatusCodes.OK).json({ message: 'Game updated successfully.' });
 };

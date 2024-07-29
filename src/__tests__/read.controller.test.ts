@@ -6,7 +6,6 @@ import { StatusCodes } from 'http-status-codes';
 import request from 'supertest';
 import buildApp from '@/app';
 
-let gameId: Types.ObjectId | undefined;
 let supertest: ReturnType<typeof request>;
 const mockPayload: CreateGameDto['body'] = {
   title: 'Diablo IV: Vessel of Hatred Background',
@@ -28,46 +27,33 @@ beforeAll(() => {
   supertest = request(buildApp(true));
 });
 
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 afterAll(async () => {
   await connection.close();
 });
 
-describe('Get a game by ID', () => {
-  it('Fails to get a game by ID due to a wrong ObjectId and returns a 400 status code', async () => {
+describe('Get all games', () => {
+  it('Gets all games and returns a 200 status code', async () => {
     // Prepare
-    const findByIdGameSpy = jest
-      .spyOn(Game, 'findById')
-      .mockResolvedValueOnce(null);
-    const expectedMessage = 'Invalid ObjectId.';
+    const findGameSpy = jest
+      .spyOn(Game, 'find')
+      .mockResolvedValueOnce([mockPayload]);
+    let expected = { games: [mockPayload] };
 
     // Execute
-    let response = await supertest.get('/v1/games/66a7283cd951XYZ');
+    let response = await supertest.get('/v1/games');
 
     // Test
-    expect(response.status).toBe(StatusCodes.BAD_REQUEST);
-    expect(response.body.errors[0].message).toStrictEqual(expectedMessage);
+    expect(findGameSpy).toHaveBeenCalledTimes(1);
+    expect(findGameSpy).toHaveBeenCalledWith();
+
+    expect(response.status).toBe(StatusCodes.OK);
+    expect(response.body).toStrictEqual(expected);
 
     // Cleanup
-    jest.clearAllMocks();
-    findByIdGameSpy.mockRestore();
-  });
-
-  it('Fails to get a game by ID and returns a 404 status code (Not Found)', async () => {
-    // Prepare
-    const findByIdGameSpy = jest
-      .spyOn(Game, 'findById')
-      .mockResolvedValueOnce(null);
-    const expectedMessage = 'Game not found.';
-
-    // Execute
-    let response = await supertest.get('/v1/games/66a7283cd95159dd59f5b1ff');
-
-    // Test
-    expect(response.status).toBe(StatusCodes.NOT_FOUND);
-    expect(response.body.message).toStrictEqual(expectedMessage);
-
-    // Cleanup
-    jest.clearAllMocks();
-    findByIdGameSpy.mockRestore();
+    findGameSpy.mockRestore();
   });
 });

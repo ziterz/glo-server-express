@@ -9,7 +9,14 @@ import IdParams from '@/types/schemas/dtos/id-param.dto';
  * @param res - The Express response object used to return data and HTTP status codes to the client.
  */
 const destroy: Controller = async (req, res) => {
-  await Game.deleteOne({ _id: req.params.id } as IdParams);
+  const findGame = await Game.findByIdAndDelete({
+    _id: req.params.id,
+  } as IdParams);
+
+  if (!findGame) {
+    res.status(StatusCodes.NOT_FOUND).json({ message: 'Game not found.' });
+    return;
+  }
 
   res.status(StatusCodes.OK).json({ message: 'Game deleted successfully.' });
 };

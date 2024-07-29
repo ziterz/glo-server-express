@@ -27,6 +27,10 @@ beforeAll(() => {
   supertest = request(buildApp(true));
 });
 
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 afterAll(async () => {
   await connection.close();
 });
@@ -50,7 +54,6 @@ describe('Create a new game', () => {
     expect(response.body.message).toBe(expectedMessage);
 
     // Cleanup
-    jest.clearAllMocks();
     createGameSpy.mockRestore();
   });
 
@@ -85,7 +88,6 @@ describe('Create a new game', () => {
         expect(response.body.errors[0].path[1]).toBe(fieldName);
 
         // Cleanup
-        jest.clearAllMocks();
         createGameSpy.mockRestore();
       }
     );
