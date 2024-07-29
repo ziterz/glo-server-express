@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: Game Level One API
+  version: 1.0.0
+  description: Backend service for the list of games developed by Game Level One
+
+tags:
+  - name: game
+    description: Operations related to game data.
+  - name: misc
+    description: Miscellaneous operations.
+
+paths:
+  /games:
+    get:
+      operationId: games#index
+      summary: List of games
+      description: Retrieves a list of games.
+      tags:
+        - game
+      responses:
+        '200':
+          description: A successful response containing a list of games.
+          content:
+            application/json:
+              schema:
+                description: Object containing a list of games.
+                type: object
+                properties:
+                  games:
+                    description: An array of games
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Game'
+
+  /health:
+    get:
+      summary: Health check
+      description: Returns a status code of 200 for health checks.
+      tags:
+        - misc
+      responses:
+        '200':
+          description: Service is up and running.
+
+components:
+  schemas:
+    Id:
+      type: string
+      format: ObjectId
+      example: '66a7aea2cda8e844bb5255bc'
+    Game:
+      type: object
+      properties:
+        _id:
+          $ref: '#/components/schemas/Id'
+        title:
+          type: string
+          example: 'Diablo IV: Vessel of Hatred Background'
+        genre:
+          type: string
+          example: 'Action RPG'
+        platforms:
+          type: array
+          items:
+            type: string
+          example: ['Battle.net', 'Xbox', 'PlayStation', 'Steam']
+        description:
+          type: string
+          example: 'The expansion takes place in the jungle region of Nahantu, and continues the story of Diablo IV where Neyrelle is in possession of the soulstone that contains the Prime Evil Mephisto'
+        poster:
+          type: string
+          example: 'https://blz-contentstack-images.akamaized.net/v3/assets/blta8f9a8e092360c6c/bltf34c631cd1c8dbf7/66660dd2e039601ffb609aa0/Diablo_D4_X1_600x800.jpg?format=webply&quality=80&auto=webp'
+        posterLogo:
+          type: string
+          example: 'https://blz-contentstack-images.akamaized.net/v3/assets/blta8f9a8e092360c6c/blt73d7c39a43451baf/66660e01418a08296a1ef807/DIV_X1_logo_EN.png?format=webply&quality=80&auto=webp'
+        video:
+          type: string
+          example: 'https://blz-contentstack-assets.akamaized.net/v3/assets/blta8f9a8e092360c6c/blteb6e50a22d978a93/6642a2a3afde859e8c84a45d/D4_DesktopAppS4_600x800_30.webm'
+        released:
+          type: string
+          format: date-time
+          example: '2024-10-08T00:00:00.000Z'
+        website:
+          type: string
+          example: 'https://diablo4.blizzard.com/vessel-of-hatred'
+        __v:
+          type: integer
+          example: 0
