@@ -11,8 +11,21 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
-    }
+    },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
   },
   "include": ["src/**/*"],
-  "exclude": ["./coverage", "./dist", "__tests__", "node_modules"]
+  "exclude": ["./coverage", "./dist", "__tests__", "node_modules"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  }
 }
